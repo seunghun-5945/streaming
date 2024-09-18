@@ -1,0 +1,46 @@
+"use client";
+
+import React, { useState } from "react";
+import '../app/globals.css'
+import { IoMdMenu } from "react-icons/io";
+import { FaSearch } from "react-icons/fa";
+import { BsBellFill } from "react-icons/bs";
+import { SlCamrecorder } from "react-icons/sl";
+import { CiMenuKebab } from "react-icons/ci";
+
+const Header = () => {
+  const [placeholder, setPlaceholder] = useState("검색");
+
+  return (
+    // 컨테이너
+    <div className="w-3xl h-20 flex flex-row justify-center items-center bg-slate-500">
+      <div className="w-1/6 h-full flex flex-row items-center bg-black">
+        <div className="w-1/4 h-full flex items-center justify-center"><IoMdMenu className="text-2xl text-white"/></div>
+        <h1 className="w-3/4 text-2xl text-lime-500">빠바밤</h1>
+      </div>
+
+      <div className="w-4/6 h-full flex flex-row items-center justify-center bg-black">
+        <div className="w-2/5 h-1/2 bg-black flex items-center justify-around rounded-full border border-white">
+          <FaSearch className="text-2xl text-white"/>
+          <input 
+            className="w-10/12 h-4/5 bg-black text-white outline-none"
+            type="search"
+            placeholder={placeholder}
+            onFocus={() => setPlaceholder("")}
+            onBlur={() => setPlaceholder("검색")}
+          />
+        </div>
+      </div>
+
+      <div className="w-1/6 h-full flex items-center justify-around bg-black">
+        <BsBellFill className="text-2xl text-white cursor-pointer"/>
+        <SlCamrecorder className="text-3xl text-white cursor-pointer"/>
+        <span className="text-white cursor-pointer">로그인</span>
+        <CiMenuKebab className="text-white text-2xl"/>
+        <span className="text-white cursor-pointer">회원가입</span>
+      </div>
+    </div>  
+  );
+};
+
+export default Header;
