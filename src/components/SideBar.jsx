@@ -3,12 +3,13 @@ import { Fragment } from 'react';
 import { AiFillHome } from "react-icons/ai";
 import { IoLogoGameControllerB } from "react-icons/io";
 import { BsPeopleFill } from "react-icons/bs";
+import { FaPaperclip } from "react-icons/fa6";
 
 const SideBar = () => {
   return (
-<>
+    <>
       {/* 사이드바임 */}
-      <div className="w-72 h-screen flex flex-col items-center justify-start bg-black">
+      <div className="w-80 h-screen flex flex-col items-center justify-start bg-black">
         <div className='w-full h-20 flex items-center justify-center'>
           <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md bg-slate-700'>
             <AiFillHome className='text-2xl text-white'/>
@@ -29,6 +30,14 @@ const SideBar = () => {
             <div className="text-xl text-white pl-5">팔로잉</div>
           </div>
         </div>
+
+        <div className='w-full h-20 flex items-center justify-center'>
+          <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md bg-black'>
+            <FaPaperclip className='text-2xl text-white'/>
+            <div className="text-xl text-white pl-5">클립</div>
+          </div>
+        </div>
+
         <hr className='w-11/12 border border-slate-500'/>
         
         <div className='w-full h-10 flex flex-row items-center juspanstify-start text-white pl-8'>
@@ -70,7 +79,6 @@ const SideBar = () => {
             </div>
           </div>
         </div>
-
       </div>
     </>
   );

@@ -13,9 +13,6 @@ export default function RootLayout({ children }) {
         <Header>
         </Header>
         <main>{children}</main>
-        <footer>
-          <p>© 2024 Streaming Site. All rights reserved.</p>
-        </footer>
       </body>
     </html>
   );

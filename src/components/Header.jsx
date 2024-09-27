@@ -10,13 +10,17 @@ import { CiMenuKebab } from "react-icons/ci";
 
 const Header = () => {
   const [placeholder, setPlaceholder] = useState("검색");
+  const [menuState, setMenuState] = useState(true);
 
   return (
     // 컨테이너
     <div className="w-3xl h-20 flex flex-row justify-center items-center bg-slate-500">
       <div className="w-1/6 h-full flex flex-row items-center bg-black">
-        <div className="w-1/4 h-full flex items-center justify-center"><IoMdMenu className="text-2xl text-white"/></div>
-        <h1 className="w-3/4 text-2xl text-lime-500">빠바밤</h1>
+        <div 
+          onClick={() => setMenuState(!menu)}
+          className="w-1/4 h-full flex items-center justify-center"><IoMdMenu className="text-2xl text-white"/>
+        </div>
+        <h1 className="w-3/4 text-4xl text-lime-500">Lime</h1>
       </div>
 
       <div className="w-4/6 h-full flex flex-row items-center justify-center bg-black">

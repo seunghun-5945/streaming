@@ -15,6 +15,10 @@ module.exports = {
       '3xl': '1920px',
     },
     extend: {
+      height: {
+        '500' : '500px',
+        '1500' : '1500px',
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
