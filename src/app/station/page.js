@@ -4,6 +4,7 @@ import { FaVideo } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
 import { IoIosInformationCircle } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
+import { AiFillLike } from "react-icons/ai";
 
 const Station = () => {
   return (
@@ -23,16 +24,7 @@ const Station = () => {
           </div>
          </div>
         <div className="w-full h-2/3 flex flex-col items-center pt-5">
-          <div className="w-3/4 h-44">
-            <iframe 
-              width="100%" 
-              height="100%" 
-              src="https://www.youtube.com/embed/3K3MMtoG8rY?mute=1&autoplay=1&showinfo=0&rel=0&controls=0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-              allowFullScreen
-            />
-          </div>
-          <button className="w-3/4 h-16 flex flex-row items-center justify-center bg-white rounded-2xl mt-5 text-3xl text-black"><CiEdit className="pr-4 text-4xl"/>글쓰기</button>
+          <button className="w-3/4 h-16 flex flex-row items-center justify-center bg-white rounded-2xl mt-5 text-2xl text-black"><CiEdit className="text-4xl"/><span>글쓰기</span></button>
           <div className="w-full h-96 flex flex-col px-20 mt-10">
             <span className="text-white text-2xl">VOD</span>
             <span className="text-white text-2xl pl-12 pt-5">전체 VOD</span>
@@ -53,30 +45,28 @@ const Station = () => {
         <div className="w-full h-2/4 flex flex-col px-6">
           <img
             src="data:image/jpeg;base64,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"
-            className="w-full h-96"></img>
-          <div className="w-full h-2/6 flex flex-row justify-between  border-slate-500">
+            className="w-full h-96 border rounded-xl"></img>
+          <div className="w-full h-2/6 flex flex-row justify-between  border">
             <div className="w-2/5 h-full flex flex-col items-start justify-around py-12 pl-5">
-              <span className="text-white flex flex-row text-3xl">BJ박준수
+              <span className="text-white flex flex-row text-4xl">BJ박준수
               <IoIosInformationCircle className="text-white"/>
               </span>
               <span className="text-white text-xl">광소,스폰 문의: 010-1234-5678</span>
             </div>
-            <div className="w-2/5 h-full flex flex-row justify-around items-flex pt-16">
+            <div className="w-2/6 h-full flex flex-row justify-around items-flex pt-16">
               <button className="w-40 h-16 flex items-center justify-around border rounded-md text-xl px-8 text-black bg-white"><FaStar />54.9만</button>
-              <button className="w-40 h-16 flex items-center justify-center bg-white border rounded-md text-xl text-black"><FaEye />99</button>
-              <button className="w-16 h-16 flex items-center justify-center bg-white rounded-md text-xl text-black">sad</button>
-              <button className="w-16 h-16 flex items-center justify-center border rounded-md text-xl text-white">sad</button>
-              <button className="w-16 h-16 flex items-center justify-center border rounded-md text-xl text-white">sad</button>
+              <button className="w-24 h-16 flex items-center justify-center `bg-white border rounded-md text-xl px-4 text-black"><FaEye />99</button>
+              <button className="w-20 h-16 flex items-center justify-around bg-white rounded-md text-xl px-3 text-black"><AiFillLike />10</button>
             </div>
           </div>
         </div>
-        <div className="w-full h-3/5 flex flex-col">
-          <div className="w-full h-20 flex items-center px-8">
+        <div className="w-full h-3/5 flex flex-col border">
+          <div className="w-full h-20 flex items-start px-8 border">
             <FaVideo className="text-white text-3xl"/>
             <span className="text-2xl text-white pl-4">VOD</span>
           </div>
-          <div className="w-full h-500 flex flex-row items-center          justify-center px-5">
-            <div className="w-7/12 h-full border">
+          <div className="w-full h-500 flex flex-row justify-between items-center px-5">
+            <div className="w-8/12 h-full">
               <iframe 
                 width="100%" 
                 height="100%" 
@@ -85,8 +75,25 @@ const Station = () => {
                 allowFullScreen
               />
             </div>
-            <div className="w-5/12 h-full border">
-              <div className="" />
+            <div className="w-3/12 h-full flex flex-col justify-between">
+              <div className="w-full h-2/5">
+                <iframe 
+                  width="100%" 
+                  height="100%" 
+                  src="https://www.youtube.com/embed/3K3MMtoG8rY?mute=1&autoplay=1&showinfo=0&rel=0&controls=0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowFullScreen
+                />
+              </div>
+              <div className="w-full h-2/5">
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/3K3MMtoG8rY?mute=1&autoplay=1&showinfo=0&rel=0&controls=0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowFullScreen
+                  />
+              </div>
             </div>
           </div>
         </div>

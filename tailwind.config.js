@@ -15,13 +15,23 @@ module.exports = {
       '3xl': '1920px',
     },
     extend: {
+      width: {
+        
+      },
       height: {
         '500' : '500px',
         '1500' : '1500px',
+        '3000' : '3000px',
+        '1/7' : '13%',
+        'vh' : '100vh',
       },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+      },
+      backgroundColor: {
+        'kakao': '#FEE500',
+        'Naver': '#2DB400',
       },
     },
   },
