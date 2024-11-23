@@ -1,5 +1,8 @@
-import React from "react";
+'use client';
+
+import React, { useEffect, useState } from "react";
 import Image from 'next/image';
+import axios from "axios";
 import { CiEdit } from "react-icons/ci";
 import { FaVideo, FaStar, FaEye } from "react-icons/fa";
 import { IoIosInformationCircle } from "react-icons/io";
@@ -35,6 +38,29 @@ const VideoThumbnail = ({ className }) => (
 );
 
 const Station = () => {
+  const [userInfo, setUserInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get("http://localhost:8000/users/me", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUserInfo(response.data);
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
   const sidebarLinks = [
     "전체 VOD", "다시보기", "하이라이트", "업로드 VOD", 
     "업로드 클립", "유저 VOD", "유저 클립", "별풍선 클립", 
@@ -46,25 +72,28 @@ const Station = () => {
       <Header />
       <div className="flex px-8 py-6 gap-8 max-w-8xl mx-auto">
         {/* Sidebar */}
-        <div className="w-80Í flex flex-col">
+        <div className="w-80 flex flex-col">
           {/* Profile Section */}
           <div className="bg-gray-800 rounded-2xl p-6 mb-6">
             <div className="flex flex-col items-center">
-              <div className="relative w-40 h-40 mb-4">
-                <Image
-                  src={profileImg}
-                  alt="Profile"
-                  fill
-                  className="rounded-full object-cover"
-                  sizes="160px"
-                />
-              </div>
+            <div className="relative w-40 h-40 mb-4">
+              <img
+                src={userInfo?.profile_picture || profileImg}
+                alt="Profile"
+                className="rounded-full object-cover w-full h-full"
+              />
+            </div>
               <h2 className="text-white text-2xl font-semibold mb-2">
-                박준수(jackpot1234)
+                {userInfo?.full_name || '사용자'} ({userInfo?.username})
               </h2>
-              <p className="text-gray-300 text-center mb-6">
-                열심히 코딩하고싶은 백엔드 프로그래머 박준수입니다
+              <p className="text-gray-300 text-center mb-4">
+                {userInfo?.bio || '자기소개가 없습니다.'}
               </p>
+              <div className="w-full text-gray-300 text-sm mb-6">
+                <p className="mb-2">이메일: {userInfo?.email}</p>
+                <p className="mb-2">잔액: {userInfo?.balance || 0}원</p>
+                <p className="mb-2">가입일: {userInfo?.created_at ? new Date(userInfo.created_at).toLocaleDateString() : '-'}</p>
+              </div>
               <button className="w-full h-12 flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                 <CiEdit className="text-2xl" />
                 <span>글쓰기</span>
@@ -100,10 +129,12 @@ const Station = () => {
             <div className="p-6 flex justify-between items-center">
               <div>
                 <div className="flex items-center gap-2 mb-3">
-                  <h1 className="text-white text-3xl font-bold">BJ박준수</h1>
+                  <h1 className="text-white text-3xl font-bold">
+                    BJ {userInfo?.full_name || '사용자'}
+                  </h1>
                   <IoIosInformationCircle className="text-white text-2xl" />
                 </div>
-                <p className="text-gray-300">광소,스폰 문의: 010-1234-5678</p>
+                <p className="text-gray-300">광고/스폰 문의: {userInfo?.email || '이메일 정보 없음'}</p>
               </div>
               <div className="flex gap-4">
                 <StatButton icon={FaStar} count="54.9만" className="w-32" />
@@ -113,13 +144,11 @@ const Station = () => {
             </div>
           </div>
 
-          {/* Video Section */}
+          {/* Welcome Section */}
           <div className="bg-gray-800 rounded-2xl p-6 mb-6">
             <div className="w-full flex flex-col items-center justify-center gap-3 mb-6 py-6 text-white">
-              <p className="text-4xl">박준수님의 채널에 오신 것을 환영합니다!</p>
-              <Image
-                src={background}
-              />
+              <p className="text-4xl">{userInfo?.full_name || '사용자'}님의 채널에 오신 것을 환영합니다!</p>
+              <Image src={background} alt="Background" />
             </div>
           </div>
 
@@ -137,7 +166,6 @@ const Station = () => {
               </div>
             </div>
           </div>
-          
         </div>
       </div>
     </div>
