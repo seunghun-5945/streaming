@@ -1,10 +1,17 @@
+'use client'
+
 import React from "react";
+import { useRouter } from "next/navigation";
 
 const Join = () => {
+  const router = useRouter();
+  
   return (
-    <div className="w-full h-1500 flex flex-col items-center justify-center">
+    <div className="w-full h-1500 flex flex-col items-center justify-center bg-white">
       <div className="w-2/5 flex flex-col items-center justify-start py-20">
-        <span className="text-4xl text-lime-500">LIME</span>
+        <span 
+          onClick={() => router.push('/')}
+          className="text-4xl text-lime-500 cursor-pointer">LIME</span>
         
         <div className="w-full h-32 flex flex-col mt-5">
           <div className="w-full h-1/3 flex items-center px-20">

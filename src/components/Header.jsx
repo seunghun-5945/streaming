@@ -8,10 +8,16 @@ import { BsBellFill } from "react-icons/bs";
 import { SlCamrecorder } from "react-icons/sl";
 import { CiMenuKebab } from "react-icons/ci";
 
-const Header = () => {
+const Header = ({ sideBarOpen, setSideBarOpen }) => {
   const [placeholder, setPlaceholder] = useState("검색");
   const [menuState, setMenuState] = useState(true);
+  //const [sideBarOpen, setSideBarOpen] = useState(false);
   const router = useRouter();
+
+  const clickMenuBar = () => {
+    setSideBarOpen(!sideBarOpen);
+    console.log(sideBarOpen);
+  }
 
   return (
     // 컨테이너
@@ -20,7 +26,9 @@ const Header = () => {
         <div
           onClick={() => setMenuState(!menuState)}
           className="w-1/4 h-full flex items-center justify-center">
-          <IoMdMenu className="text-2xl text-white"/>
+          <IoMdMenu 
+            onClick={clickMenuBar}
+            className="text-2xl text-white cursor-pointer"/>
         </div>
         <h1
           onClick={() => router.push('/')}

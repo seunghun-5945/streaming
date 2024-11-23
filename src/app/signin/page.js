@@ -12,7 +12,7 @@ const SignIn = () => {
 
   return (
 
-    <div className="w-full h-dvh flex items-center justify-center">
+    <div className="w-full h-dvh flex items-center justify-center bg-white">
       <div className="w-1/4 h-3/4">
         <div className="w-full h-1/2 flex flex-col items-center justify-center ">
           <div className="w-full h-1/4 flex flex-col items-center justify-around ">

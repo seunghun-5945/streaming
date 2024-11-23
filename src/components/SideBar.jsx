@@ -5,11 +5,16 @@ import { IoLogoGameControllerB } from "react-icons/io";
 import { BsPeopleFill } from "react-icons/bs";
 import { FaPaperclip } from "react-icons/fa6";
 
-const SideBar = () => {
+const SideBar = ({ isOpen }) => {
   return (
     <>
       {/* 사이드바임 */}
-      <div className="w-80 h-screen flex flex-col items-center justify-start bg-black">
+      <div className={`
+      w-80 h-screen flex flex-col items-center justify-start bg-black
+      transform transition-transform duration-300 ease-in-out
+      ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+      fixed left-0 top-20 z-40
+    `}>
         <div className='w-full h-20 flex items-center justify-center'>
           <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md bg-slate-700'>
             <AiFillHome className='text-2xl text-white'/>

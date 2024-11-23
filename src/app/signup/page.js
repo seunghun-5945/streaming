@@ -11,7 +11,7 @@ const SignUp = () => {
   const router = useRouter();
 
   return (
-    <div className="w-full h-dvh flex items-center justify-center border">
+    <div className="w-full h-dvh flex items-center justify-center bg-white">
       <div className="w-1/4 h-1/2 flex flex-col items-center justify-around border">
         <span className="text-3xl text-lime-500">LIME</span>
         회원가입 후 이용하실 수 있습니다
