@@ -10,3 +10,6 @@ html, body {
 #__next {
   height: 100%;
 }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

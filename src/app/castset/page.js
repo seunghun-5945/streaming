@@ -11,7 +11,7 @@ const SettingCast = () => {
     <Header />
     <div className="w-full min-h-screen flex flex-col bg-black text-white p-4">
       <div className="w-1/2 mx-auto my-auto">
-        <h1 className="w-full flex justify-center text-3xl font-bold mb-8">방송 설정</h1>
+        <h1 className="w-full flex justify-center text-3xl font-bold mb-8">스트리밍 설정</h1>
         
         <form className="space-y-6">
           {/* 방송 제목 */}

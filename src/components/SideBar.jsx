@@ -8,36 +8,36 @@ import { FaPaperclip } from "react-icons/fa6";
 const SideBar = ({ isOpen }) => {
   return (
     <>
-      {/* 사이드바임 */}
       <div className={`
-      w-80 h-screen flex flex-col items-center justify-start bg-black
-      transform transition-transform duration-300 ease-in-out
-      ${isOpen ? 'translate-x-0' : '-translate-x-full'}
-      fixed left-0 top-20 z-40
-    `}>
+        w-80 h-screen flex flex-col items-center justify-start bg-black
+        transform transition-transform duration-300 ease-in-out
+        ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        fixed left-0 top-20 z-40
+      `}>
+        {/* Menu Items */}
         <div className='w-full h-20 flex items-center justify-center'>
-          <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md bg-slate-700'>
+          <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md hover:bg-slate-700 transition-colors duration-200'>
             <AiFillHome className='text-2xl text-white'/>
             <div className="text-xl text-white pl-5">홈</div>
           </div>
         </div>
 
         <div className='w-full h-20 flex items-center justify-center'>
-          <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md bg-black'>
+          <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md hover:bg-slate-700 transition-colors duration-200'>
             <IoLogoGameControllerB className='text-2xl text-white'/>
             <div className="text-xl text-white pl-5">탐색</div>
           </div>
         </div>
 
         <div className='w-full h-20 flex items-center justify-center'>
-          <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md bg-black'>
+          <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md hover:bg-slate-700 transition-colors duration-200'>
             <BsPeopleFill className='text-2xl text-white'/>
             <div className="text-xl text-white pl-5">팔로잉</div>
           </div>
         </div>
 
         <div className='w-full h-20 flex items-center justify-center'>
-          <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md bg-black'>
+          <div className='w-11/12 h-3/5 flex items-center pl-5 rounded-md hover:bg-slate-700 transition-colors duration-200'>
             <FaPaperclip className='text-2xl text-white'/>
             <div className="text-xl text-white pl-5">클립</div>
           </div>
