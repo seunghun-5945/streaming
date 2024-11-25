@@ -10,7 +10,6 @@ import { CgMediaLive } from "react-icons/cg";
 import suggest from "@/json/suggest.json";
 import background from "@/app/assets/images/LimeBackground.png";
 
-
 const TagButton = ({ tag }) => {
   return (
     <div className="min-w-20 max-w-40 h-1/2 flex items-center justify-center bg-slate-700 rounded-2xl ml-5 p-2 text-white text-xl">
@@ -19,11 +18,12 @@ const TagButton = ({ tag }) => {
   );
 };
 
-const Scene = ({ img }) => {
+const Scene = ({ img, index, onClick }) => {
   return (
     <img 
-      className="w-1/4 h-3/4 rounded-md border" 
+      className="w-1/4 h-3/4 rounded-md cursor-pointer hover:opacity-80 transition-opacity duration-300" 
       src={img}
+      onClick={() => onClick(index)}
     />
   );
 };
@@ -122,11 +122,33 @@ const Home = () => {
         // suggest.length - 1 이 최대 인덱스
         return prevIndex >= suggest.length - 1 ? 0 : prevIndex + 1;
       });
-    }, 5000); // 2초마다 실행
+    }, 10000); 
 
     // cleanup function
     return () => clearInterval(interval);
   }, []);
+  
+  const handlePrevArrow = () => {
+    setCurrentIndex(prevIndex => {
+      // 첫 번째 아이템에서 이전을 누르면 마지막 아이템으로
+      if (prevIndex === 0) {
+        return suggest.length - 1;
+      }
+      // 그 외에는 이전 인덱스로
+      return prevIndex - 1;
+    });
+  };
+
+  const handleNextArrow = () => {
+    setCurrentIndex(prevIndex => {
+      // 마지막 아이템에서 다음을 누르면 첫 번째 아이템으로
+      if (prevIndex >= suggest.length - 1) {
+        return 0;
+      }
+      // 그 외에는 다음 인덱스로
+      return prevIndex + 1;
+    });
+  };
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -218,7 +240,7 @@ const Home = () => {
         <div className="w-full flex items-center space-x-4 borer">
           <div className="relative">
             <img 
-              src="/api/placeholder/80/80"
+              src={currentSuggest.icon}
               alt="Profile"
               className="w-20 h-20 rounded-full border-2 border-gray-700 object-cover hover:border-lime-500 transition-all duration-300"
             />
@@ -232,8 +254,8 @@ const Home = () => {
               {currentSuggest.name}
             </h2>
             <div className="flex items-center bg-gray-800 px-3 py-1 rounded-full">
-              <BiVideoRecording className="text-lime-500 text-xl"/>
-              <span className="text-lg pl-2 text-lime-500 font-medium">100명</span>
+              <CgMediaLive className="text-lime-500 text-xl" color="red"/>
+              <span className="text-lg pl-2 text-lime-500 font-medium">Live 100명</span>
             </div>
           </div>
         </div>
@@ -246,13 +268,13 @@ const Home = () => {
         {/* Tags */}
         <div className="flex items-center space-x-2">
         <img 
-  className="h-14" 
-  src={currentSuggest.appIcon || background}
-  onError={(e) => {
-    e.target.onerror = null;
-    e.target.src = background;
-  }} 
-/>
+          className="h-14" 
+          src={currentSuggest.appIcon || background}
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = background;
+          }} 
+        />
           <span className="text-white text-xl font-medium pl-2">{currentSuggest.app}</span>
           <div className="flex space-x-2">
           {currentSuggest.tag.map((tag, index) => (
@@ -266,25 +288,39 @@ const Home = () => {
     </div>
 
     <div className="w-full h-2/6 flex flex-row items-center justify-around">
-      <Scene/>
-      <Scene/>
-      <Scene/>
+      {suggest.map((item, index) => (
+        <Scene 
+          key={index}
+          img={item.thumbnail}
+          index={index}
+          onClick={(index) => setCurrentIndex(index)}
+        />
+      ))}
     </div>
 
-      {/* 동영상 옆 추천방소 이동 화살표 */}
-      <div className="w-full h-1/6 flex items-center justify-center space-x-8">
-        <button className="p-2 rounded-full hover:bg-gray-800 transition-colors duration-300">
-          <IoIosArrowBack className="text-white text-2xl"/>
-        </button>
-        <div className="flex space-x-4">
-          <GiPlainCircle className="text-lime-500 text-sm" />
-          <GiPlainCircle className="text-gray-600 text-sm" />
-          <GiPlainCircle className="text-gray-600 text-sm" />
-        </div>
-        <button className="p-2 rounded-full hover:bg-gray-800 transition-colors duration-300">
-          <IoIosArrowForward className="text-white text-2xl" />
-        </button>
+    {/* 동영상 옆 추천방송 이동 화살표 */}
+    <div className="w-full h-1/6 flex items-center justify-center space-x-8">
+      <button 
+        className="p-2 rounded-full hover:bg-gray-800 transition-colors duration-300"
+        onClick={handlePrevArrow}
+      >
+        <IoIosArrowBack className="text-white text-2xl"/>
+      </button>
+      <div className="flex space-x-4">
+        {suggest.map((_, index) => (
+          <GiPlainCircle 
+            key={index}
+            className={`text-sm ${currentIndex === index ? 'text-lime-500' : 'text-gray-600'}`} 
+          />
+        ))}
       </div>
+      <button 
+        className="p-2 rounded-full hover:bg-gray-800 transition-colors duration-300"
+        onClick={handleNextArrow}
+      >
+        <IoIosArrowForward className="text-white text-2xl" />
+      </button>
+    </div>
     </div>
         <div className="w-1/2 h-full">
         <iframe 

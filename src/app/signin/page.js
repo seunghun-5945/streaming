@@ -38,7 +38,7 @@ const SignIn = () => {
 
   return (
     <div className="w-full min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full flex flex-col justify-around max-w-md h-auto md:h-[600px] p-4">
+      <div className="w-full flex flex-col justify-around max-w-md h-auto md:h-[600px] p-4 shadow-xl">
         {/* 상단 섹션 */}
         <div className="w-full h-auto md:h-1/2 flex flex-col items-center justify-center space-y-8">
           {/* 로고와 안내 텍스트 */}

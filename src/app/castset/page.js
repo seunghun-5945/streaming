@@ -1,10 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 
 const SettingCast = () => {
   const router = useRouter();
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const extoken = localStorage.getItem('token');
+    if (!extoken) {
+      router.push('/signin');
+      return;
+    }
+    console.log("토큰 확인:", extoken);
+    setToken(extoken);
+  }, [router]);
 
   return (
     <>
