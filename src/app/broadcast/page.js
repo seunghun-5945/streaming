@@ -1,10 +1,13 @@
 'use client';
+
 import React, { useEffect, useRef, useState } from 'react';
 import Hls from 'hls.js';
 import Header from '@/components/Header';
 import { MessageSquare, Users, Share2, Heart } from 'lucide-react';
+import { useSearchParams } from 'next/navigation';
 
 const BroadcastPlayer = ({ streamUrl }) => {
+  // BroadcastPlayer 컴포넌트 코드는 동일
   const videoRef = useRef(null);
   const hlsRef = useRef(null);
 
@@ -68,7 +71,14 @@ const ChatMessage = ({ username, message }) => (
 );
 
 const Broadcast = () => {
-  const streamUrl = 'https://your-hls-stream-url.m3u8';
+  // URL 쿼리 파라미터에서 데이터 가져오기
+  const searchParams = useSearchParams();
+  const streamId = searchParams.get('streamId');
+  const title = searchParams.get('title');
+  const nickname = searchParams.get('nickname');
+  const profilePic = searchParams.get('profilePic');
+
+  const streamUrl = `http://localhost:8000/live/${streamId}/index.m3u8`;
   const [viewerCount, setViewerCount] = useState(1234);
   const [isLiked, setIsLiked] = useState(false);
 
@@ -89,14 +99,14 @@ const Broadcast = () => {
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 rounded-full bg-purple-600 overflow-hidden">
                     <img
-                      src="/api/placeholder/64/64"
-                      alt="Streamer"
+                      src={profilePic || "/api/placeholder/64/64"}
+                      alt={nickname}
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div>
-                    <h1 className="text-xl font-bold text-white">정주환 제주 도시자</h1>
-                    <p className="text-gray-400">Bronze4 80p</p>
+                    <h1 className="text-xl font-bold text-white">{nickname}</h1>
+                    <p className="text-gray-400">Stream ID: {streamId}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -116,7 +126,7 @@ const Broadcast = () => {
                 </div>
               </div>
               <p className="mt-4 text-white">
-                정주환 제주 도시자의 즐거운 일요일 솔랭방송!
+                {title}
               </p>
               <div className="mt-4 flex items-center space-x-4 text-gray-400">
                 <div className="flex items-center">

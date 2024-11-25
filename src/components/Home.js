@@ -10,6 +10,8 @@ import { CgMediaLive } from "react-icons/cg";
 import { CiStar } from "react-icons/ci";
 import suggest from "@/json/suggest.json";
 import background from "@/app/assets/images/LimeBackground.png";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const TagButton = ({ tag }) => {
   return (
@@ -51,6 +53,101 @@ const Category = ({ name, img, index, show }) => {
           <span className="ml-3">{show}명 시청중</span>
         </span>
       </div>
+    </div>
+  );
+};
+
+const LiveStream = () => {
+  const [liveStream, setLiveStream] = useState([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8001/streams');
+        const dataArray = Object.entries(response.data).map(([id, data]) => ({
+          id,
+          ...data
+        }));
+        setLiveStream(dataArray);
+      } catch (error) {
+        console.error("스트림 데이터 불러오기 실패:", error);
+      }
+    };
+  
+    fetchData();
+    const interval = setInterval(fetchData, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleClick = (stream) => {
+    // URL 쿼리 파라미터를 사용하여 데이터 전달
+    router.push(`/broadcast?streamId=${stream.id}&title=${encodeURIComponent(stream.title)}&nickname=${encodeURIComponent(stream.nickname)}&profilePic=${encodeURIComponent(stream.profile_pic)}`);
+  };
+  
+  if (liveStream.length === 0) {
+    return <div className="flex justify-center items-center w-full h-full text-white">
+      로딩중...
+    </div>;
+  }
+
+  return (
+    <div className="flex flex-row gap-4 px-6 overflow-x-auto hide-scrollbar">
+      {liveStream.map((stream) => (
+        <div 
+          key={stream.id} 
+          className="w-[450px] h-[360px] flex-shrink-0 bg-gray-800 rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 cursor-pointer shadow-lg hover:shadow-xl"
+          onClick={() => handleClick(stream)}
+        >
+          {/* 썸네일 이미지 컨테이너 */}
+          <div className="relative w-full h-[200px]">
+            <img 
+              src={stream.profile_pic}
+              className="w-full h-full object-cover" 
+              alt={stream.nickname}
+            />
+            {/* 라이브 배지 */}
+            <div className="absolute top-3 left-3 flex items-center bg-red-600 px-2 py-1 rounded-lg">
+              <CgMediaLive className="text-white mr-1" />
+              <span className="text-white text-sm font-bold">LIVE</span>
+            </div>
+            {/* 시청자 수 배지 */}
+            <div className="absolute top-3 right-3 flex items-center bg-black bg-opacity-70 px-2 py-1 rounded-lg">
+              <span className="text-white text-sm">1.2K명 시청</span>
+            </div>
+          </div>
+
+          {/* 컨텐츠 정보 */}
+          <div className="p-4 flex flex-col gap-2">
+            {/* 스트리머 프로필 */}
+            <div className="flex items-center gap-3">
+              <img 
+                src={stream.profile_pic} 
+                className="w-10 h-10 rounded-full border-2 border-lime-500"
+                alt={stream.nickname}
+              />
+              <span className="text-white font-bold text-lg truncate">
+                {stream.nickname}
+              </span>
+            </div>
+            
+            {/* 방송 제목 */}
+            <h3 className="text-white font-medium text-base line-clamp-2 h-12">
+              {stream.title}
+            </h3>
+
+            {/* 카테고리/태그 */}
+            <div className="flex gap-2">
+              <span className="text-sm px-2 py-1 bg-gray-700 text-gray-300 rounded-full">
+                Just Chatting
+              </span>
+              <span className="text-sm px-2 py-1 bg-gray-700 text-gray-300 rounded-full">
+                한국어
+              </span>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 };
@@ -365,9 +462,12 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="w-full h-1/3 flex flex-col">
+      <div className="w-full h-1/2 flex flex-col">
         <div className="w-full h-1/6 flex items-center bg-black">
-          <span className="text-2xl flex flex-row items-center justify-between px-6 text-white"><CiStar color="yellow" className="text-4xl"/>이번주 인기 스트리머</span>
+          <span className="text-2xl flex flex-row items-center justify-between px-6 text-white"><CiStar color="yellow" className="text-4xl"/>현재 인기있는 스트리밍</span>
+        </div>
+        <div className="w-full h-5/6 flex flex-row items-center">
+          <LiveStream />
         </div>
       </div>
     </div>
