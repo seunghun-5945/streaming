@@ -11,6 +11,7 @@ import Header from "@/components/Header";
 import bannerImg from "@/app/assets/images/banner.png";
 import profileImg from "@/app/assets/images/LimeCharacter.png";
 import background from "@/app/assets/images/LimeBackground.png";
+import tv from "@/app/assets/images/tv.png";
 
 const SidebarButton = ({ icon: Icon, text }) => (
   <button className="w-3/4 h-12 flex items-center gap-3 text-white hover:bg-gray-700 rounded-lg px-4 transition-colors">
@@ -98,6 +99,10 @@ const Station = () => {
                 <CiEdit className="text-2xl" />
                 <span>글쓰기</span>
               </button>
+              <button className="w-full h-12 flex items-center justify-center gap-2 bg-white hover:bg-gray-200 text-black rounded-lg transition-color mt-5">
+                <CiEdit className="text-2xl text-black" />
+                <span>정보 수정</span>
+              </button>
             </div>
           </div>
 
@@ -156,7 +161,7 @@ const Station = () => {
           <div className="bg-gray-800 rounded-2xl p-6">
             <div className="flex items-center gap-3 mb-6">
               <FaVideo className="text-white text-2xl" />
-              <h2 className="text-white text-2xl font-semibold">VOD</h2>
+              <h2 className="text-white text-2xl font-semibold">VOD 다시보기</h2>
             </div>
             <div className="flex gap-6">
               <VideoThumbnail className="w-2/3 aspect-video" />

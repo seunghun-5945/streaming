@@ -7,6 +7,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import { GiPlainCircle } from "react-icons/gi";
 import { BsFire } from "react-icons/bs";
 import { CgMediaLive } from "react-icons/cg";
+import { CiStar } from "react-icons/ci";
 import suggest from "@/json/suggest.json";
 import background from "@/app/assets/images/LimeBackground.png";
 
@@ -362,6 +363,11 @@ const Home = () => {
               />
             ))}
           </div>
+        </div>
+      </div>
+      <div className="w-full h-1/3 flex flex-col">
+        <div className="w-full h-1/6 flex items-center bg-black">
+          <span className="text-2xl flex flex-row items-center justify-between px-6 text-white"><CiStar color="yellow" className="text-4xl"/>이번주 인기 스트리머</span>
         </div>
       </div>
     </div>

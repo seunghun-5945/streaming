@@ -2,10 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
+import axios from "axios";
 
 const SettingCast = () => {
   const router = useRouter();
   const [token, setToken] = useState('');
+  const [title, setTitle] = useState('');
+  const [tags, setTags] = useState('');
+  const [contents, setContents] = useState('');
 
   useEffect(() => {
     const extoken = localStorage.getItem('token');
@@ -16,6 +20,29 @@ const SettingCast = () => {
     console.log("토큰 확인:", extoken);
     setToken(extoken);
   }, [router]);
+
+  const sendRequest = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost:8001/add_stream_key',
+        {
+          streamKey: "string",
+          tags: [tags],
+          title: title,
+          contents: contents,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // 헤더에 인증 토큰 추가
+          },
+        }
+      );
+      console.log("응답 데이터:", response.data);
+    } catch (error) {
+      console.error("에러 발생:", error);
+    }
+  };
+  
 
   return (
     <>
@@ -29,6 +56,7 @@ const SettingCast = () => {
           <div className="flex flex-col space-y-2">
             <label className="text-lg">방송 제목</label>
             <input
+              onChange={(e) => setTitle(e.target.value)}
               type="text"
               name="title"
               placeholder="방송 제목을 입력해주시요"
@@ -40,19 +68,34 @@ const SettingCast = () => {
           {/* 카테고리 */}
           <div className="space-y-2">
             <label className="text-lg">카테고리</label>
-            <select
-              name="category"
-              className="w-full p-3 bg-zinc-800 rounded-lg border border-zinc-700 
-                         focus:outline-none focus:ring-2 focus:ring-lime-500"
-              required
-            >
-              <option value="">카테고리 선택</option>
-              <option value="game">게임</option>
-              <option value="talk">토크/캐주얼</option>
-              <option value="music">음악</option>
-              <option value="sports">스포츠</option>
-              <option value="education">교육</option>
-              <option value="other">기타</option>
+              <select
+                name="category"
+                onChange={(e) => setTags(e.target.value)}
+                className="w-fulselectl p-3 bg-zinc-800 rounded-lg border border-zinc-700 
+                          focus:outline-none focus:ring-2 focus:ring-lime-500"
+                required
+              >
+              <option value="">게임 선택</option>
+              <option value="zelda">The Legend of Zelda: Breath of the Wild</option>
+              <option value="darksouls">Dark Souls</option>
+              <option value="cod">Call of Duty</option>
+              <option value="fortnite">Fortnite</option>
+              <option value="minecraft">Minecraft</option>
+              <option value="lol">League of Legends</option>
+              <option value="wow">World of Warcraft</option>
+              <option value="amongus">Among Us</option>
+              <option value="stardew">Stardew Valley</option>
+              <option value="hollowknight">Hollow Knight</option>
+              <option value="animalcrossing">Animal Crossing: New Horizons</option>
+              <option value="sims">The Sims 4</option>
+              <option value="gta">Grand Theft Auto V</option>
+              <option value="eldenring">Elden Ring</option>
+              <option value="overwatch">Overwatch 2</option>
+              <option value="hades">Hades</option>
+              <option value="fifa">FIFA 23</option>
+              <option value="mariokart">Mario Kart 8 Deluxe</option>
+              <option value="residentevil">Resident Evil 4</option>
+              <option value="tetris">Tetris</option>
             </select>
           </div>
 
@@ -61,6 +104,7 @@ const SettingCast = () => {
             <label className="text-lg">방송 설명</label>
             <textarea
               name="description"
+              onChange={(e) => setContents(e.target.value)}
               placeholder="방송에 대해 설명해주세요"
               className="w-full p-3 bg-zinc-800 rounded-lg border border-zinc-700 
                          focus:outline-none focus:ring-2 focus:ring-lime-500"
@@ -81,7 +125,7 @@ const SettingCast = () => {
                 <span>연령 제한 (19세 이상)</span>
               </label>
               
-              <label className="flex items-center space-x-2">
+              <label className="fㅁlex items-center space-x-2">
                 <input
                   type="checkbox"
                   className="w-4 h-4 rounded text-lime-500 focus:ring-lime-500 bg-zinc-800 border-zinc-700"
@@ -103,11 +147,11 @@ const SettingCast = () => {
             </button>
             <button
               type="submit"
-              onClick={() => router.push("/broadcast")}
+              onClick={sendRequest}
               className="px-6 py-2 bg-lime-600 text-white rounded-lg 
                          hover:bg-lime-500 transition-colors"
             >
-              방송 시작
+              설정 적용
             </button>
           </div>
         </form>

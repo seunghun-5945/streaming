@@ -73,7 +73,7 @@ const SignIn = () => {
 
           {/* 체크박스와 링크 */}
           <div className="w-full space-y-4">
-            <div className="flex flex-wrap justify-between text-sm text-slate-400 gap-2">
+            <div className="flex flex-wrap justify-around text-sm text-slate-400 gap-2">
               <label className="flex items-center space-x-2">
                 <input type="checkbox" className="rounded"/>
                 <span>로그인 상태 유지</span>
@@ -84,7 +84,7 @@ const SignIn = () => {
               </label>
             </div>
             
-            <div className="flex justify-between text-sm text-slate-300">
+            <div className="flex justify-around text-sm text-slate-300">
               <button className="hover:text-slate-400">아이디 찾기</button>
               <span>|</span>
               <button className="hover:text-slate-400">비밀번호 찾기</button>
