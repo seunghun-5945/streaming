@@ -6,6 +6,14 @@ import Header from '@/components/Header';
 import { MessageSquare, Users, Share2, Heart } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 
+const TagButton = ({ tags }) => {
+  return (
+    <div className="min-w-20 max-w-40 h-1/2 flex items-center justify-center bg-slate-700 rounded-2xl ml-5 p-2 text-white text-xl">
+      <span className="text-sm">{tags}</span>
+    </div>
+  );
+};
+
 const BroadcastPlayer = ({ streamUrl }) => {
   // BroadcastPlayer 컴포넌트 코드는 동일
   const videoRef = useRef(null);
@@ -57,7 +65,7 @@ const BroadcastPlayer = ({ streamUrl }) => {
     <video
       ref={videoRef}
       controls
-      className="w-full h-full rounded-lg object-cover"
+      className="w-full h-full rounded-lg object-cover border"
       playsInline
     />
   );
@@ -94,7 +102,7 @@ const Broadcast = () => {
             </div>
             
             {/* Streamer Info */}
-            <div className="mt-6 bg-gray-800 rounded-lg p-6">
+            <div className="mt-5 bg-gray-800 rounded-lg p-6 border">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-4">
                   <div className="w-16 h-16 rounded-full bg-purple-600 overflow-hidden">
@@ -107,6 +115,11 @@ const Broadcast = () => {
                   <div>
                     <h1 className="text-xl font-bold text-white">{nickname}</h1>
                     <p className="text-gray-400">Stream ID: {streamId}</p>
+                  </div>
+                  <div className='flex text-white'>
+                    <TagButton tags="#롤방송"/>
+                    <TagButton tags="#롤방송"/>
+                    <TagButton tags="#롤방송"/>
                   </div>
                 </div>
                 <div className="flex items-center space-x-4">
@@ -129,7 +142,8 @@ const Broadcast = () => {
                 {title}
               </p>
               <div className="mt-4 flex items-center space-x-4 text-gray-400">
-                <div className="flex items-center">
+                <div className=''>[테스터] 감기 조심 하십쇼 여러분</div>
+                <div className="flex items-center ">
                   <Users size={18} className="mr-2" />
                   <span>{viewerCount.toLocaleString()} 시청자</span>
                 </div>
@@ -138,8 +152,8 @@ const Broadcast = () => {
           </div>
 
           {/* Chat Section */}
-          <div className="lg:col-span-1">
-            <div className="bg-gray-800 rounded-lg h-[600px] flex flex-col">
+          <div className="lg:col-span-1 ">
+            <div className="bg-gray-800 rounded-lg h-full flex flex-col border">
               <div className="p-4 border-b border-gray-700">
                 <div className="flex items-center justify-between">
                   <h2 className="text-white font-semibold flex items-center">

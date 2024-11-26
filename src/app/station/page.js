@@ -11,7 +11,7 @@ import Header from "@/components/Header";
 import bannerImg from "@/app/assets/images/banner.png";
 import profileImg from "@/app/assets/images/LimeCharacter.png";
 import background from "@/app/assets/images/LimeBackground.png";
-import tv from "@/app/assets/images/tv.png";
+import lime from "@/app/assets/images/lime.png";
 
 const SidebarButton = ({ icon: Icon, text }) => (
   <button className="w-3/4 h-12 flex items-center gap-3 text-white hover:bg-gray-700 rounded-lg px-4 transition-colors">
@@ -123,10 +123,10 @@ const Station = () => {
           <div className="bg-gray-800 rounded-2xl overflow-hidden mb-8">
             <div className="relative w-full h-80">
               <Image
-                src={bannerImg}
+                src={lime}
                 alt="Banner"
                 fill
-                className="object-cover"
+                className="object-fit"
                 sizes="(max-width: 1280px) 100vw, 1280px"
                 priority
               />
